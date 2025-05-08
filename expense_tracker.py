@@ -16,7 +16,7 @@ def add_expences():
        "date":  input("enter the date(YYYY-MM-DD): "),
        "category": input ("enter the category (food,transport): "),
        "amount": int (input("enter total amount of money: ")),
-       " description":input("enter the description (optional): ")}])
+       "description":input("enter the description (optional): ")}])
 
        data = pd.concat([data,new_data], ignore_index=True )
        data.to_csv("expence.csv", index=False)
