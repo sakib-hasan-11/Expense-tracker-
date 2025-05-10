@@ -1,6 +1,10 @@
 import pandas as pd 
 import os
 from datetime import datetime 
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm 
+import numpy as np
+
 
 data = pd.DataFrame(columns=["date","category","amount","description"])
 data.to_csv("expence.csv",index=False)
@@ -18,6 +22,8 @@ def add_expences():
        "amount": int (input("enter total amount of money: ")),
        "description":input("enter the description (optional): ")}])
 
+
+       data["date"]=pd.to_datetime(data["date"])
        data = pd.concat([data,new_data], ignore_index=True )
        data.to_csv("expence.csv", index=False)
        print("your data is added successfully ")
@@ -42,10 +48,30 @@ def reset_data():
        print("your previous data is deleted")
        return reset_data
 
+def view_statistics(): 
+       print(" 1 = view expense per category \n 2 = view monthly expence statistics ")
+       user_input = int(input("your input here: "))
+       if user_input == 1 : 
+              plt.plot(data["category"],data["amount"], label="expense per category",color="#8bbaf8")
+              plt.xlabel("category")
+              plt.ylabel("amount of money")
+              plt.legend()
+              plt.title("expense per category")
+              plt.show()
+       if user_input == 2 : 
+              num_items = len(user_input)
+              colors = cm.tab20(np.linspace(0, 1, num_items)) 
+              plt.pie(data["amount"],autopct="%1,1f%%",labels=data["category"])
+              plt.title("expense per category")
+              plt.show()
+
+
+
+
 def main_menu(): 
     while True:
               print("your expence")
-              print("1. add new expence \n2. view data \n3. view summery \n4. exit \n5. reset data")
+              print("1. add new expence \n2. view data \n3. view summery \n4. exit \n5. reset data \n6. view statistics ")
               choise =int(input("enter your choise here: "))
               if choise == 1: 
                      add_expences()
@@ -57,6 +83,8 @@ def main_menu():
                      view_expences()
               elif choise == 5: 
                      reset_data()
+              elif choise == 6: 
+                     view_statistics()
               else : 
                      print("invalid input")
 main_menu()
