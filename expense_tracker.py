@@ -59,8 +59,6 @@ def view_statistics():
               plt.title("expense per category")
               plt.show()
        if user_input == 2 : 
-              num_items = len(user_input)
-              colors = cm.tab20(np.linspace(0, 1, num_items)) 
               plt.pie(data["amount"],autopct="%1,1f%%",labels=data["category"])
               plt.title("expense per category")
               plt.show()
